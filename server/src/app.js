@@ -18,4 +18,3 @@ app.use(express.static("public"));
 app.use("/api/users", userRoutes);
 
 export default app;
-
