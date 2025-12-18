@@ -1,5 +1,5 @@
 import Property from "./property.model.js";
-import ApiError from "../../utils/apiError.js";
+import {ApiError} from "../../utils/apiError.js";
 
 export const createProperty = async (data, userId) => {
   const property = await Property.create({

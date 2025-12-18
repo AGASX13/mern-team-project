@@ -1,6 +1,6 @@
 import Room from "./room.model.js";
 import Property from "../properties/property.model.js";
-import ApiError from "../../utils/apiError.js";
+import {ApiError} from "../../utils/apiError.js";
 
 export const createRoom = async (propertyId, data) => {
   const property = await Property.findById(propertyId);

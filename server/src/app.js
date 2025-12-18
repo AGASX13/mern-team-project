@@ -5,7 +5,8 @@ import userRoutes from "./features/users/user.routes.js";
 import propertyRoutes from "./features/properties/property.routes.js";
 import roomRoutes from "./features/rooms/room.routes.js";
 import bookingRoutes from "./features/bookings/booking.routes.js";
-import reviewRoutes from "./features/reviews/review.routes.js";
+import reviewRoutes from "./features/reviews/review.routes.js"; 
+import authRoutes from "./features/auth/auth.routes.js";
 
 const app = express();
 

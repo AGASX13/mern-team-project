@@ -1,6 +1,6 @@
 import Review from "./review.model.js";
 import Property from "../properties/property.model.js";
-import ApiError from "../../utils/apiError.js";
+import {ApiError} from "../../utils/apiError.js";
 
 const calculateAverageRating = async (propertyId) => {
   const stats = await Review.aggregate([

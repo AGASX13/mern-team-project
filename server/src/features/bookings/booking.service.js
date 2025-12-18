@@ -1,6 +1,6 @@
 import Booking from "./booking.model.js";
 import Room from "../rooms/room.model.js";
-import ApiError from "../../utils/apiError.js";
+import {ApiError} from "../../utils/apiError.js";
 
 export const createBooking = async (userId, data) => {
   const room = await Room.findById(data.room);
