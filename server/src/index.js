@@ -1,8 +1,10 @@
-// Load environment variables immediately
-require('dotenv').config();
 
-const connectDB = require('./config/db');
-const { app } = require('./app'); // We will create app.js next
+import "dotenv/config";
+
+import connectDB from "./config/db.js";
+import app from "./app.js";
+
+
 
 // 1. Connect to Database
 connectDB()
@@ -17,4 +19,5 @@ connectDB()
 })
 .catch((err) => {
     console.log("❌ MongoDB connection failed !!! ", err);
+    process.exit(1);
 });
