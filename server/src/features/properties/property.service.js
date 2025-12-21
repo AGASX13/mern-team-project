@@ -31,7 +31,7 @@ export const getPropertyById = async (id) => {
 
 export const updateProperty = async (id, userId, data) => {
   const property = await Property.findOne({
-    _id: id,
+    _id: id, // <-- this must be _id
     owner: userId,
   });
 
@@ -47,7 +47,7 @@ export const updateProperty = async (id, userId, data) => {
 
 export const deleteProperty = async (id, userId) => {
   const property = await Property.findOneAndDelete({
-    _id: id,
+    _id: id, // <-- this must be _id
     owner: userId,
   });
 
