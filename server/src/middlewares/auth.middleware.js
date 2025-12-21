@@ -14,7 +14,7 @@ export const authMiddleware = (req, res, next) => {
 
     // Use _id here to match your property service
     req.user = {
-      _id: decoded.id,  // <-- this must be _id
+      id: decoded.id,  // <-- this must be _id
       role: decoded.role
     };
 
