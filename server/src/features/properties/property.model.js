@@ -6,57 +6,68 @@ const propertySchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+      index: true,
     },
-
     name: {
       type: String,
-      required: true,
+      required: [true, "Property name is required"],
+      trim: true,
+      index: true,
+    },
+    description: {
+      type: String,
       trim: true,
     },
-
+    // Detailed Address Structure
     address: {
-      type: String,
-      required: true,
+      street: { type: String, required: true },
+      area: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      pincode: { type: String, required: true },
     },
-
-    city: {
-      type: String,
-      required: true,
+    // GeoJSON for Map Search (Crucial for PGs)
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
+      },
+      coordinates: {
+        type: [Number], // [longitude, latitude]
+        index: "2dsphere", // Enables geospatial queries
+      },
     },
-
-    rent: {
-      type: Number,
-      required: true,
-    },
-
     gender: {
       type: String,
-      enum: ["boys", "girls", "unisex"],
+      enum: ["boys", "girls", "unisex"], // "unisex" is common for co-living
       required: true,
+      index: true,
     },
-
+    type: {
+      type: String,
+      enum: ["PG", "Flat", "Hostel"],
+      default: "PG",
+    },
     amenities: [
       {
-        type: String, // wifi, food, ac, laundry etc
+        type: String, // e.g., "WiFi", "Power Backup", "Food"
       },
     ],
-
-    totalRooms: {
-      type: Number,
-      required: true,
+    rules: {
+      smoking: { type: Boolean, default: false },
+      guests: { type: String, default: "Allowed during day" },
+      curfew: { type: String, default: "10:00 PM" },
     },
-
-    availableRooms: {
-      type: Number,
-      required: true,
+    contactInfo: {
+      phone: { type: String, required: true },
+      email: { type: String },
     },
-
     images: [
       {
-        type: String, // image URLs
+        type: String, // Cloudinary URLs
       },
     ],
-
     isVerified: {
       type: Boolean,
       default: false,
@@ -64,5 +75,8 @@ const propertySchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// 1. Text Index for Search Bar functionality
+propertySchema.index({ name: "text", "address.city": "text", "address.area": "text" });
 
 export default mongoose.model("Property", propertySchema);

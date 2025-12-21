@@ -6,16 +6,21 @@ import {
   removeRoom,
 } from "./room.controller.js";
 
-import {authMiddleware} from "../../middlewares/auth.middleware.js";
+import { authMiddleware } from "../../middlewares/auth.middleware.js";
+// Optional: import { verifyPropertyOwner } from "../../middlewares/access.middleware.js"; 
 
 const router = express.Router();
 
-/* Rooms under a property */
+// Public or Semi-Public Routes
+// Added query support: GET /:propertyId?type=single&minPrice=5000
 router.get("/:propertyId", fetchRooms);
 
-/* Protected */
+// Protected Routes (Admin/Owner)
+// Note: In a real app, add a middleware here to ensure the logged-in user OWNS the property.
 router.post("/:propertyId", authMiddleware, addRoom);
-router.put("/update/:roomId", authMiddleware, editRoom);
-router.delete("/delete/:roomId", authMiddleware, removeRoom);
+
+router.route("/:roomId")
+    .put(authMiddleware, editRoom)
+    .delete(authMiddleware, removeRoom);
 
 export default router;
